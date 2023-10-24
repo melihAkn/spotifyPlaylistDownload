@@ -34,7 +34,7 @@ const generateToken = async () => {
 let musicNameAndArtistNameArray = []
 
 let accesToken = process.env.SPOTIFY_ACCESSTOKEN
-const apiURL = "https://api.spotify.com/v1/playlists/16uFsmsFjTY3hGk6ZblbMU/tracks"
+const apiURL = `https://api.spotify.com/v1/playlists/${process.env.SPOTIFY_PLAYLIST_ID}/tracks`
 function makeRequest() {
   axios.get(apiURL , {
     headers: {
