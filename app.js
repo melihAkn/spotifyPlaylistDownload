@@ -30,7 +30,7 @@ const generateToken = async () => {
 
   }
 //generateToken()
-//1. asama spotify playlistinden muzik isimlerini ve artist isimlerini alma
+//2. asama spotify playlistinden muzik isimlerini ve artist isimlerini alma
 let musicNameAndArtistNameArray = []
 
 let accesToken = process.env.SPOTIFY_ACCESSTOKEN
@@ -42,10 +42,10 @@ function makeRequest() {
       }
 })
     .then(async data => {
-        //api cagrisi basarili olursa calısacak kodlar
         data.data.items.forEach(async element => {
           let musicNameAndArtistName = element.track.name + element.track.artists[0].name
           musicNameAndArtistNameArray.push(element.track.name + element.track.artists[0].name)
+//3.asama alinan muzik ismi ve artistin isminin youtube da aranmasi 
           const apiKey = process.env.YOUTUBE_APIKEY; 
           const youtube = google.youtube({
             version: 'v3',
@@ -56,6 +56,7 @@ function makeRequest() {
               q: musicNameAndArtistName, 
               maxResults: 1
             });
+
             const videos = [];
             searchResponse.data.items.forEach(searchResult => {
               switch (searchResult.id.kind) {
@@ -65,9 +66,10 @@ function makeRequest() {
               }
               })
             console.log(videos);
+//4. asama bulunan videonun indirilip musics klasorune kaydedilmesi
             videos.forEach(e => {
-              const videoURL = `https://www.youtube.com/watch?v=${e.videoID}`; // Video URL'sini buraya ekleyin
-              const outputMP3Path = `musics/${e.videoTitle}.mp3`; // Dönüştürülen MP3 dosyasının kaydedileceği yol
+              const videoURL = `https://www.youtube.com/watch?v=${e.videoID}`;
+              const outputMP3Path = `musics/${e.videoTitle}.mp3`;
               
               const video = ytdl(videoURL, {
                 quality: 'highest',
