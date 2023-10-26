@@ -26,7 +26,6 @@ client id ve client secret için https://developer.spotify.com/dashboard/ bu adr
 client_ID ve client_Secret kodlarını env dosyasına ekleyin ve generateToken() fonksiyonunu çalıstırıp accessTokeni olusturun
 https://console.cloud.google.com/apis/dashboard bu adresten youtube Data Api V3 aktif edin sonrasında credentials kısmından api keyinize erişin
 son olarak indirmek istediğiniz spotify playlist'in id env dosyasına ekleyin
-   yotube apikey'inize erişin
 ```shell
 CLIENT_ID = ''
 CLIENT_SECRET = ''
