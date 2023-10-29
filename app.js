@@ -5,32 +5,9 @@ require('dotenv').config()
 const ffmpeg = require('ffmpeg')
 const ytdl = require('ytdl-core')
 const { google } = require('googleapis');
-//1. asama gerekli tokenin olusturulması
-const generateToken = async () => {
-    const client_id = process.env.CLIENT_ID;
-    const client_secret = process.env.CLIENT_SECRET;
-    const data = { grant_type: "client_credentials" };
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization:
-          "Basic " +
-          Buffer.from(client_id + ":" + client_secret).toString("base64"),
-        "content-type": "application/x-www-form-urlencoded",
-      },
-      data: qs.stringify(data),
-      url: "https://accounts.spotify.com/api/token",
-    };
-    const response = await axios(options);
-  
-    const { access_token } = response.data;
-    token = access_token
-    console.log(access_token)
-    return access_token
 
-  }
-//generateToken()
 //2. asama spotify playlistinden muzik isimlerini ve artist isimlerini alma
+//Stage 2: Retrieving music names and artist names from the Spotify playlist
 let musicNameAndArtistNameArray = []
 
 let accesToken = process.env.SPOTIFY_ACCESSTOKEN
@@ -46,6 +23,7 @@ function makeRequest() {
           let musicNameAndArtistName = element.track.name + element.track.artists[0].name
           musicNameAndArtistNameArray.push(element.track.name + element.track.artists[0].name)
 //3.asama alinan muzik ismi ve artistin isminin youtube da aranmasi 
+//Stage 3: Searching for the retrieved music name and artist's name on YouTube
           const apiKey = process.env.YOUTUBE_APIKEY; 
           const youtube = google.youtube({
             version: 'v3',
@@ -67,6 +45,7 @@ function makeRequest() {
               })
             console.log(videos);
 //4. asama bulunan videonun indirilip musics klasorune kaydedilmesi
+//Stage 4: Downloading the found video and saving it to the 'musics' folder
             videos.forEach(e => {
               const videoURL = `https://www.youtube.com/watch?v=${e.videoID}`;
               const outputMP3Path = `musics/${e.videoTitle}.mp3`;
