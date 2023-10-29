@@ -1,4 +1,4 @@
-<h2 align="center"> <a href="tr">Turkish</a> | <a href="eng">English</a>  </h2>
+<h2 align="center"> <a href="#kurulum">Turkish</a> | <a href="#setup">English</a>  </h2>
 
 <h1 id="tr" align="center">spotify playlistlerinde olan muzikleri youtubedan bulup indirme</h1>
 
